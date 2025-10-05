@@ -1,0 +1,281 @@
+{
+  "users": [
+    {
+      "id": "1759538032911",
+      "name": "Andres",
+      "password": "$2b$10$ux2bWBP.nm3zvyGORWWwDeZE0RgaR6gXo2KuQN7KOSR3mVexeCmNq"
+    },
+    {
+      "id": "1759538135748",
+      "name": "Carlos",
+      "password": "$2b$10$ux2bWBP.nm3zvyGORWWwDeZE0RgaR6gXo2KuQN7KOSR3mVexeCmNq"
+    },
+    {
+      "id": "1759538306542",
+      "name": "Santiago",
+      "password": "$2b$10$ux2bWBP.nm3zvyGORWWwDeZE0RgaR6gXo2KuQN7KOSR3mVexeCmNq"
+    },
+    {
+      "id": "1759544729059",
+      "name": "Fabian",
+      "password": "$2b$10$ux2bWBP.nm3zvyGORWWwDeZE0RgaR6gXo2KuQN7KOSR3mVexeCmNq"
+    }
+  ],
+  "images": [
+    {
+      "id": "1759540217923-1c7gqo7hd",
+      "name": "Santiago",
+      "filename": "1759540217919-ydafomv.jpg",
+      "url": "/uploads/1759540217919-ydafomv.jpg",
+      "ronda": 2,
+      "votes": 1
+    },
+    {
+      "id": "1759542604754-1ntw64zlg",
+      "name": "Carlos",
+      "filename": "1759542604749-kcm2rm1.jpg",
+      "url": "/uploads/1759542604749-kcm2rm1.jpg",
+      "ronda": 2,
+      "votes": 1
+    },
+    {
+      "id": "1759542641111-vykk3dde6",
+      "name": "Carlos",
+      "filename": "1759542641088-p9f75rh.jpg",
+      "url": "/uploads/1759542641088-p9f75rh.jpg",
+      "ronda": 3,
+      "votes": 0
+    },
+    {
+      "id": "1759542649173-6yfug1eg2",
+      "name": "Carlos",
+      "filename": "1759542649170-1mpvi31.jpg",
+      "url": "/uploads/1759542649170-1mpvi31.jpg",
+      "ronda": 4,
+      "votes": 1
+    },
+    {
+      "id": "1759543146541-bn8oy2qlu",
+      "name": "Carlos",
+      "filename": "1759543146538-i6jezgu.jpg",
+      "url": "/uploads/1759543146538-i6jezgu.jpg",
+      "ronda": 1,
+      "votes": 2
+    },
+    {
+      "id": "1759544764496-8xejp3845",
+      "name": "Fabian",
+      "filename": "1759544764490-jqbi0cs.jpg",
+      "url": "/uploads/1759544764490-jqbi0cs.jpg",
+      "ronda": 1,
+      "votes": 2
+    },
+    {
+      "id": "1759544788240-7d1ra41ew",
+      "name": "Fabian",
+      "filename": "1759544788236-ainqoxn.jpg",
+      "url": "/uploads/1759544788236-ainqoxn.jpg",
+      "ronda": 2,
+      "votes": 0
+    },
+    {
+      "id": "1759544803484-9wlheqkk4",
+      "name": "Fabian",
+      "filename": "1759544803480-qlznoai.jpg",
+      "url": "/uploads/1759544803480-qlznoai.jpg",
+      "ronda": 3,
+      "votes": 1
+    },
+    {
+      "id": "1759544812747-xc7w2ksrl",
+      "name": "Fabian",
+      "filename": "1759544812742-sdyfv1y.jpg",
+      "url": "/uploads/1759544812742-sdyfv1y.jpg",
+      "ronda": 4,
+      "votes": 1
+    },
+    {
+      "id": "1759545387412-6rxx5h8k9",
+      "name": "Andres",
+      "filename": "1759545387404-lzfeuj5.jpg",
+      "url": "/uploads/1759545387404-lzfeuj5.jpg",
+      "ronda": 2,
+      "votes": 0
+    },
+    {
+      "id": "1759547330390-saf8zqgua",
+      "name": "Andres",
+      "filename": "1759547330384-y91996k.jpg",
+      "url": "/uploads/1759547330384-y91996k.jpg",
+      "ronda": 3,
+      "votes": 0
+    },
+    {
+      "id": "1759547337071-k23yy9hk3",
+      "name": "Andres",
+      "filename": "1759547337062-cuwq4gc.jpg",
+      "url": "/uploads/1759547337062-cuwq4gc.jpg",
+      "ronda": 4,
+      "votes": 0
+    }
+  ],
+  "votes": [
+    {
+      "id": "1759594142265-qkmtaw14g",
+      "imageId": "1759540217923-1c7gqo7hd",
+      "voterName": "Andres",
+      "ronda": 2,
+      "ts": 1759594142265
+    },
+    {
+      "id": "1759612765631-ielnyp411",
+      "imageId": "1759542604754-1ntw64zlg",
+      "voterName": "Andres",
+      "ronda": 2,
+      "ts": 1759612765631
+    },
+    {
+      "id": "1759612779088-wxai8a0qb",
+      "imageId": "1759544803484-9wlheqkk4",
+      "voterName": "Andres",
+      "ronda": 3,
+      "ts": 1759612779088
+    },
+    {
+      "id": "1759612782196-vxme575cc",
+      "imageId": "1759544812747-xc7w2ksrl",
+      "voterName": "Andres",
+      "ronda": 4,
+      "ts": 1759612782196
+    },
+    {
+      "id": "1759612854266-7w4zjxatm",
+      "imageId": "1759543146541-bn8oy2qlu",
+      "voterName": "Andres",
+      "ronda": 1,
+      "ts": 1759612854266
+    },
+    {
+      "id": "1759612877438-tqe7oewmj",
+      "imageId": "1759542649173-6yfug1eg2",
+      "voterName": "Andres",
+      "ronda": 4,
+      "ts": 1759612877438
+    },
+    {
+      "id": "1759613014943-aiwndvaye",
+      "imageId": "1759544764496-8xejp3845",
+      "voterName": "Andres",
+      "ronda": 1,
+      "ts": 1759613014943
+    }
+  ],
+  "themes": [
+    {
+      "id": "t1r1",
+      "ronda": 1,
+      "title": "Un animal en una situación inesperada",
+      "imageUrl": "/themes/r1-animal.jpg",
+      "votes": 1
+    },
+    {
+      "id": "t2r1",
+      "ronda": 1,
+      "title": "Un lugar mágico en la naturaleza",
+      "imageUrl": "/themes/r1-magia.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t3r1",
+      "ronda": 1,
+      "title": "Un retrato en estilo caricaturesco",
+      "imageUrl": "/themes/r1-caricatura.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t1r2",
+      "ronda": 2,
+      "title": "Una ciudad futurista al atardecer",
+      "imageUrl": "/themes/r2-ciudad.jpg",
+      "votes": 1
+    },
+    {
+      "id": "t2r2",
+      "ronda": 2,
+      "title": "Un héroe o villano original",
+      "imageUrl": "/themes/r2-heroe.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t3r2",
+      "ronda": 2,
+      "title": "Un festival cultural imaginario",
+      "imageUrl": "/themes/r2-festival.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t1r3",
+      "ronda": 3,
+      "title": "El encuentro entre dos épocas históricas",
+      "imageUrl": "/themes/r3-epocas.jpg",
+      "votes": 1
+    },
+    {
+      "id": "t2r3",
+      "ronda": 3,
+      "title": "Un sueño convertido en realidad",
+      "imageUrl": "/themes/r3-sueno.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t3r3",
+      "ronda": 3,
+      "title": "El fin del mundo en estilo artístico específico",
+      "imageUrl": "/themes/r3-findelmundo.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t1r4",
+      "ronda": 4,
+      "title": "Un universo paralelo con sus propias reglas",
+      "imageUrl": "/themes/r4-universo.jpg",
+      "votes": 0
+    },
+    {
+      "id": "t2r4",
+      "ronda": 4,
+      "title": "Retrato colectivo: 'La humanidad en 2100'",
+      "imageUrl": "/themes/r4-humanidad.jpg",
+      "votes": 1
+    },
+    {
+      "id": "t3r4",
+      "ronda": 4,
+      "title": "La batalla definitiva: IA vs. humanos",
+      "imageUrl": "/themes/r4-batalla.jpg",
+      "votes": 0
+    }
+  ],
+  "themeVotes": [
+    {
+      "userId": "1759538032911",
+      "ronda": 1,
+      "themeId": "t1r1"
+    },
+    {
+      "userId": "1759538032911",
+      "ronda": 2,
+      "themeId": "t1r2"
+    },
+    {
+      "userId": "1759538032911",
+      "ronda": 3,
+      "themeId": "t1r3"
+    },
+    {
+      "userId": "1759538032911",
+      "ronda": 4,
+      "themeId": "t2r4"
+    }
+  ]
+}
