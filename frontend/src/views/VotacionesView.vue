@@ -1,12 +1,24 @@
 <template>
-  <div v-if="isAuthenticated" class="p-8">
+  <div v-if="isAuthenticated" class="max-w-7xl mx-auto pt-4 px-6 p-8">
 
-    <div class="px-6 py-3">
+    <div class="mb-8">
       <h2 class="text-3xl md:text-4xl font-bold">Votaciones</h2>
       <p class="mt-2 text-gray-600">Vota por tu favorito. Solo puedes votar una vez por ronda.</p>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 pt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center text-sm">
+      <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow">
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Participantes</span>
+        <span class="block text-xl font-bold text-blue-600 mt-1">{{ stats.totalParticipants }}</span>
+      </div>
+      <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow">
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Votos Imágenes (Ronda {{
+          selectedRound }})</span>
+        <span class="block text-xl font-bold text-blue-600 mt-1">{{ roundImageVotes }}</span>
+      </div>
+    </div>
+
+    <div>
       <div class="flex items-center gap-2 mb-6">
         <button v-for="round in [1, 2, 3, 4]" :key="round" @click="selectRound(round)"
           :class="selectedRound === round
@@ -29,7 +41,6 @@
 
           <div class="p-4 flex flex-col flex-grow">
             <h3 class="text-base font-semibold text-gray-900 mb-2">{{ image.name }}</h3>
-
             <div class="flex items-center gap-1 text-sm text-gray-500 mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -67,66 +78,126 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue"; // Asegúrate de importar watch
 import { getToken, isAuthenticated, currentUser } from '../store/auth.js';
 import { toast } from 'vue3-toastify';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL;
 const selectedRound = ref(1);
 const images = ref([]);
-const userVotes = ref({}); // Objeto para rastrear los votos del usuario. Ej: { 1: 'imageId123', 2: 'imageId456' }
-const loading = ref(true);
+const userVotes = ref({}); // Historial de votos del usuario actual { ronda: imageId }
+const loading = ref(true); // Empieza en true para la carga inicial
 const error = ref(null);
+const stats = ref({ totalParticipants: 0, totalThemeVotes: 0 }); // Estadísticas globales
+const roundImageVotes = ref(0); // Votos de imágenes de la ronda actual
 
-// CAMBIO PRINCIPAL: Separamos la carga de datos inicial
-async function fetchInitialData() {
-  loading.value = true;
-  error.value = null;
-  const token = getToken();
+// --- FUNCIONES ASÍNCRONAS ---
 
+async function fetchRoundImageVotes(round) {
   try {
-    // 1. Primero, obtenemos el historial de votos del usuario
-    const votesResponse = await fetch(`${API_URL}/api/me/votes`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!votesResponse.ok) throw new Error('No se pudo cargar tu historial de votos.');
-    const votesHistory = await votesResponse.json();
-    userVotes.value = votesHistory; // Rellenamos nuestro estado con los votos históricos
-
-    // 2. Después, cargamos las imágenes de la primera ronda
-    await fetchImages(1);
-
+    const response = await fetch(`${API_URL}/api/stats/images/${round}`);
+    if (!response.ok) throw new Error('Error al cargar votos de imágenes de la ronda.');
+    const data = await response.json();
+    roundImageVotes.value = data.totalVotesInRound;
   } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
+    console.error(`Error obteniendo votos de imágenes ronda ${round}:`, err);
+    roundImageVotes.value = 0; // Reinicia si hay error
   }
 }
 
 async function fetchImages(round) {
-  loading.value = true;
-  images.value = [];
+  images.value = []; // Limpia las imágenes antes de cargar nuevas
+  error.value = null; // Limpia errores previos específicos de carga de imágenes
   try {
     const response = await fetch(`${API_URL}/api/rondas/${round}/images`);
     if (!response.ok) throw new Error('No se pudieron cargar las imágenes de la ronda.');
     let fetchedImages = await response.json();
     images.value = fetchedImages.map(img => ({ ...img, url: `${API_URL}${img.url}` }));
+    // Carga los votos de imágenes de esta ronda *después* de cargar las imágenes
+    await fetchRoundImageVotes(round);
   } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
+    error.value = err.message; // Muestra error de carga de imágenes
+    console.error(`Error obteniendo imágenes ronda ${round}:`, err);
   }
 }
 
-function selectRound(round) {
-  selectedRound.value = round;
-  fetchImages(round);
+// Función REFINADA para cargar TODOS los datos necesarios del usuario
+async function loadUserDataAndRoundData() {
+  console.log("loadUserDataAndRoundData: Iniciando carga de datos...");
+  loading.value = true;
+  error.value = null;
+  userVotes.value = {}; // Limpia SIEMPRE los votos previos antes de cargar nuevos
+  const token = getToken();
+
+  if (!isAuthenticated.value || !token) {
+    console.log("loadUserDataAndRoundData: No autenticado, deteniendo.");
+    images.value = []; // Limpia imágenes si no está logueado
+    roundImageVotes.value = 0;
+    loading.value = false;
+    return;
+  }
+
+  try {
+    console.log("loadUserDataAndRoundData: Obteniendo historial de votos del usuario...");
+    // 1. Obtener historial de votos del usuario actual
+    const votesResponse = await fetch(`${API_URL}/api/me/votes`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!votesResponse.ok) throw new Error('No se pudo cargar tu historial de votos.');
+    const votesHistory = await votesResponse.json();
+    userVotes.value = votesHistory; // Guarda el historial
+    console.log("loadUserDataAndRoundData: Historial cargado:", votesHistory);
+
+    // 2. Cargar imágenes y votos de la ronda seleccionada actualmente
+    // (fetchImages ya llama a fetchRoundImageVotes)
+    console.log(`loadUserDataAndRoundData: Obteniendo imágenes para ronda ${selectedRound.value}...`);
+    await fetchImages(selectedRound.value);
+
+    // 3. Cargar estadísticas globales (podría ir en paralelo)
+    console.log("loadUserDataAndRoundData: Obteniendo estadísticas globales...");
+    await fetchGlobalStats();
+
+  } catch (err) {
+    error.value = err.message; // Muestra el error si alguna parte falla
+    console.error("loadUserDataAndRoundData Error:", err);
+  } finally {
+    loading.value = false;
+    console.log("loadUserDataAndRoundData: Carga de datos finalizada.");
+  }
+}
+
+async function fetchGlobalStats() {
+  try {
+    const response = await fetch(`${API_URL}/api/stats`);
+    if (!response.ok) throw new Error('No se pudieron cargar las estadísticas globales.');
+    const data = await response.json();
+    stats.value = {
+      totalParticipants: data.totalParticipants,
+      totalThemeVotes: data.totalThemeVotes
+    };
+  } catch (err) {
+    console.error("fetchGlobalStats Error:", err);
+    // Opcional: reiniciar stats si falla
+    stats.value = { totalParticipants: 0, totalThemeVotes: 0 };
+  }
 }
 
 async function handleVote(image) {
   const token = getToken();
   const voterName = currentUser.value;
+
+  if (isVotingDisabled(image)) {
+    toast.warn("No puedes votar por esta imagen.");
+    return;
+  }
+
+  // Prevenir doble clic mientras se procesa el voto (opcional, buena UX)
+  // Necesitarías un ref `isVoting` para esto
+  // if (isVoting.value) return;
+  // isVoting.value = true;
+
   try {
     const response = await fetch(`${API_URL}/api/vote`, {
       method: 'POST',
@@ -140,44 +211,92 @@ async function handleVote(image) {
     if (!response.ok) {
       throw new Error(data.message || 'Error al procesar el voto.');
     }
+    // Actualización optimista de la UI
     image.votes++;
-    userVotes.value[selectedRound.value] = image.id;
+    // Actualiza directamente el estado userVotes para feedback inmediato
+    userVotes.value = { ...userVotes.value, [selectedRound.value]: image.id };
     toast.success('¡Voto registrado con éxito!');
+    // Obtiene el contador actualizado de votos de la ronda
+    await fetchRoundImageVotes(selectedRound.value);
   } catch (err) {
     toast.error(err.message);
+  } finally {
+    // isVoting.value = false; // Habilita votar de nuevo
   }
 }
 
+// --- FUNCIONES SÍNCRONAS Y WATCHERS ---
+
+async function selectRound(round) {
+  if (selectedRound.value === round || loading.value) return; // Previene recarga o carga mientras ya está cargando
+  selectedRound.value = round;
+  loading.value = true; // Muestra indicador de carga al cambiar
+  // Obtiene imágenes y votos de la nueva ronda
+  await fetchImages(round);
+  loading.value = false; // Oculta indicador de carga
+}
+
 function isVotingDisabled(image) {
-  if (image.name === currentUser.value) return true;
-  if (userVotes.value[selectedRound.value]) return true;
+  if (!currentUser.value) return true; // Deshabilita si no hay usuario logueado
+  if (image.name === currentUser.value) return true; // No puedes votar por tu propia imagen
+  if (userVotes.value && userVotes.value[selectedRound.value]) return true; // Ya votaste en esta ronda
   return false;
 }
 
 function getButtonClass(image) {
-  // AHORA ESTA LÓGICA FUNCIONARÁ CORRECTAMENTE AL CARGAR LA PÁGINA
-  if (userVotes.value[selectedRound.value] === image.id) {
-    return 'bg-green-100 text-green-600 cursor-not-allowed'; // Votado
+  if (!currentUser.value) return 'bg-gray-100 text-gray-400 cursor-not-allowed'; // Estilo deshabilidado si no hay login
+  if (userVotes.value && userVotes.value[selectedRound.value] === image.id) {
+    return 'bg-green-100 text-green-600 cursor-not-allowed'; // Votaste por esta
   }
   if (image.name === currentUser.value) {
     return 'bg-gray-200 text-gray-500 cursor-not-allowed'; // Tu propia imagen
   }
-  if (userVotes.value[selectedRound.value]) {
-    return 'bg-gray-100 text-gray-400 cursor-not-allowed'; // Ya se votó en la ronda
+  if (userVotes.value && userVotes.value[selectedRound.value]) {
+    return 'bg-gray-100 text-gray-400 cursor-not-allowed'; // Votaste por otra en esta ronda
   }
-  return 'bg-blue-600 text-white hover:bg-blue-700'; // Habilitado para votar
+  return 'bg-blue-600 text-white hover:bg-blue-700'; // Puedes votar
 }
 
 function getButtonText(image) {
-  // Y ESTA TAMBIÉN
-  if (userVotes.value[selectedRound.value] === image.id) return 'Votado';
+  if (!currentUser.value) return 'Votar'; // Texto por defecto si no hay login
+  if (userVotes.value && userVotes.value[selectedRound.value] === image.id) return 'Votado';
   if (image.name === currentUser.value) return 'Tu Imagen';
   return 'Votar';
 }
 
+// Observa cambios en el estado de autenticación
+watch(isAuthenticated, (isAuthNow, wasAuthBefore) => {
+  console.log("Watcher isAuthenticated cambió:", { isAuthNow, wasAuthBefore });
+  // Si el usuario acaba de iniciar sesión (o ya estaba logueado al cargar el componente)
+  if (isAuthNow) {
+    console.log("Usuario autenticado detectado. Llamando a loadUserDataAndRoundData()...");
+    // Carga todos los datos necesarios para el usuario autenticado
+    loadUserDataAndRoundData();
+  }
+  // Si el usuario acaba de cerrar sesión
+  else if (!isAuthNow && wasAuthBefore) {
+    console.log("Usuario cerró sesión. Limpiando datos...");
+    // Limpia todos los datos específicos del usuario y de la ronda
+    images.value = [];
+    userVotes.value = {};
+    roundImageVotes.value = 0;
+    error.value = null;
+    loading.value = false;
+    selectedRound.value = 1; // Opcional: resetear a ronda 1
+    // Opcional: limpiar stats globales también
+    // stats.value = { totalParticipants: 0, totalThemeVotes: 0 };
+  }
+}, { immediate: true }); // immediate: true asegura que se ejecute al cargar si ya está autenticado
+
+// onMounted ahora es más simple
 onMounted(() => {
-  if (isAuthenticated.value) {
-    fetchInitialData(); // Llamamos a la nueva función
+  console.log("Componente Votaciones Montado. Estado inicial Auth:", isAuthenticated.value);
+  // Carga las estadísticas globales independientemente del login inicial
+  fetchGlobalStats();
+  // Si el usuario no está autenticado al montar, asegura que loading sea false.
+  // El watcher con 'immediate: true' se encarga de la carga de datos si sí lo está.
+  if (!isAuthenticated.value) {
+    loading.value = false;
   }
 });
 </script>

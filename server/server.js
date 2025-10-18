@@ -1,4 +1,6 @@
 // server/server.js
+require('dotenv').config();
+
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -8,11 +10,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken'); 
 
 const app = express();
+const whitelist = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+
 const corsOptions = {
-  origin: [
-    'http://localhost:5173',
-    'http://19.168.1.9:5173'
-  ],
+  origin: function (origin, callback) {
+    // Permite peticiones sin 'origin' (como las de Postman o apps móviles)
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   optionsSuccessStatus: 200
 };
 
@@ -452,6 +460,72 @@ app.get('/api/me/votes', authMiddleware, async (req, res) => {
   });
 
   res.json(formattedVotes);
+});
+
+
+/**
+ * GET /api/stats
+ * Devuelve estadísticas básicas: total de participantes, total votos emitidos en temas y total de votos emitidos.
+ */
+app.get('/api/stats', async (req, res) => {
+  try {
+    const db = await readDB();
+    const totalParticipants = (db.users || []).length;
+    const totalImageVotes = (db.votes || []).length; // Votos para imágenes
+    const totalThemeVotes = (db.themeVotes || []).length; // Votos para temas
+
+    res.json({
+      totalParticipants: totalParticipants,
+      totalImageVotes: totalImageVotes,
+      totalThemeVotes: totalThemeVotes
+    });
+  } catch (err) {
+    console.error("Error fetching stats:", err);
+    res.status(500).json({ message: "Error al obtener estadísticas." });
+  }
+});
+
+/**
+ * GET /api/stats/temas/:ronda
+ * Devuelve el número total de votos emitidos para temas en una ronda específica.
+ */
+app.get('/api/stats/temas/:ronda', async (req, res) => {
+  const { ronda } = req.params;
+  try {
+    const db = await readDB();
+    // Filtra los votos de temas por la ronda especificada y cuenta cuántos hay
+    const roundThemeVotesCount = (db.themeVotes || []).filter(v => v.ronda === Number(ronda)).length;
+
+    res.json({
+      round: Number(ronda),
+      totalVotesInRound: roundThemeVotesCount
+    });
+  } catch (err) {
+    console.error("Error al obtener votos del tema para la ronda:", err);
+    res.status(500).json({ message: "Error al obtener votos del tema para la ronda." });
+  }
+});
+
+
+/**
+ * GET /api/stats/images/:ronda
+ * Devuelve el número total de votos emitidos para imágenes en una ronda específica.
+ */
+app.get('/api/stats/images/:ronda', async (req, res) => {
+  const { ronda } = req.params;
+  try {
+    const db = await readDB();
+    // Filtra los votos de imágenes por la ronda especificada y cuenta cuántos hay
+    const roundImageVotesCount = (db.votes || []).filter(v => v.ronda === Number(ronda)).length;
+
+    res.json({
+      round: Number(ronda),
+      totalVotesInRound: roundImageVotesCount
+    });
+  } catch (err) {
+    console.error("Error al obtener votos de imágenes para la ronda:", err);
+    res.status(500).json({ message: "Error al obtener votos de imágenes para la ronda." });
+  }
 });
 
 const PORT = process.env.PORT || 3000;

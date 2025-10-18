@@ -105,7 +105,7 @@ import { ref, onMounted, computed } from "vue";
 import { toast } from 'vue3-toastify';
 import { getToken, isAuthenticated, currentUser } from '../store/auth.js';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL;
 const participantName = ref(currentUser.value || ""); 
 const selectedRound = ref(1);
 const imageFile = ref(null);

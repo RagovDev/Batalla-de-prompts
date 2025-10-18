@@ -1,521 +1,184 @@
 {
   "users": [
     {
-      "id": "1759616804528",
+      "id": "1760755146057",
       "name": "andres",
-      "password": "$2b$10$r548sNi3H5V8UKxlw8xhgejSg01QYnFd4L45kuPQ7qAlBzjgZYRdq"
+      "password": "$2b$10$A.DL/UivO2H33n6SfhUVvecyd6MFbx6oG7D.GkScD1h1OUsgvXFiW"
     },
     {
-      "id": "1759616816443",
-      "name": "antonio",
-      "password": "$2b$10$8/GhZVPNoG8FhWHssoQhcOAxknuKy7j56Wk31Ol0Ha1cCd6DtSNcG"
-    },
-    {
-      "id": "1759616824677",
-      "name": "diego",
-      "password": "$2b$10$AQKzk54.4SmHUDr8igmhR.A2rISPwf5pvpRx4rTPGL/Gn3Vjbp1tG"
-    },
-    {
-      "id": "1759616831651",
-      "name": "fabian",
-      "password": "$2b$10$wghpCNVBNGrj2muzxloZKup.pbFv/pvowKnyMQy8j3z9anqQ4G/o6"
-    },
-    {
-      "id": "1759616836201",
+      "id": "1760755207919",
       "name": "jose",
-      "password": "$2b$10$tCHAHBTQ6wVHOWcZMa5ClORdGJ2lvdKAnLQ9IOyCJlAkdVbiF.zXm"
+      "password": "$2b$10$35vgLX5ZUyGlq998Cbl20eR4cxZv5eAvHHuvVrabMuLACVA9tw7F6"
     }
   ],
   "images": [
     {
-      "id": "1759617288181-9rtd6twmz",
+      "id": "1760755153027-emeyrrz97",
       "name": "andres",
-      "filename": "1759617288174-d8ch6x1.jpg",
-      "url": "/uploads/1759617288174-d8ch6x1.jpg",
+      "filename": "1760755153020-i3clvgl.jpg",
+      "url": "/uploads/1760755153020-i3clvgl.jpg",
       "ronda": 1,
-      "votes": 0
+      "votes": 1
     },
     {
-      "id": "1759617302658-5lcv7mu1k",
+      "id": "1760755159081-tcdbwetkj",
       "name": "andres",
-      "filename": "1759617302653-1m9cz1p.jpg",
-      "url": "/uploads/1759617302653-1m9cz1p.jpg",
+      "filename": "1760755159076-evzms6m.jpg",
+      "url": "/uploads/1760755159076-evzms6m.jpg",
       "ronda": 2,
       "votes": 1
     },
     {
-      "id": "1759617307490-7uqmybqia",
-      "name": "andres",
-      "filename": "1759617307484-9cwj5c2.jpg",
-      "url": "/uploads/1759617307484-9cwj5c2.jpg",
-      "ronda": 3,
-      "votes": 1
-    },
-    {
-      "id": "1759617315621-8pe4vomwq",
-      "name": "andres",
-      "filename": "1759617315616-wikdd3f.jpg",
-      "url": "/uploads/1759617315616-wikdd3f.jpg",
-      "ronda": 4,
-      "votes": 2
-    },
-    {
-      "id": "1759617341776-f9jaua1r1",
-      "name": "antonio",
-      "filename": "1759617341772-iy9553z.jpg",
-      "url": "/uploads/1759617341772-iy9553z.jpg",
+      "id": "1760755214800-wv8o61yst",
+      "name": "jose",
+      "filename": "1760755214796-syjv0o0.jpg",
+      "url": "/uploads/1760755214796-syjv0o0.jpg",
       "ronda": 1,
       "votes": 1
     },
     {
-      "id": "1759617347833-wgt7re62b",
-      "name": "antonio",
-      "filename": "1759617347830-x333n89.jpg",
-      "url": "/uploads/1759617347830-x333n89.jpg",
-      "ronda": 2,
-      "votes": 1
-    },
-    {
-      "id": "1759617353269-fhk071xvb",
-      "name": "antonio",
-      "filename": "1759617353261-jedwjyg.jpg",
-      "url": "/uploads/1759617353261-jedwjyg.jpg",
-      "ronda": 3,
-      "votes": 0
-    },
-    {
-      "id": "1759617361473-agkf0r12x",
-      "name": "antonio",
-      "filename": "1759617361466-ss4nz2c.jpg",
-      "url": "/uploads/1759617361466-ss4nz2c.jpg",
-      "ronda": 4,
-      "votes": 0
-    },
-    {
-      "id": "1759617388624-5fhfioqrh",
-      "name": "diego",
-      "filename": "1759617388615-pashrrl.jpg",
-      "url": "/uploads/1759617388615-pashrrl.jpg",
-      "ronda": 1,
-      "votes": 2
-    },
-    {
-      "id": "1759617393691-gkc74m2ua",
-      "name": "diego",
-      "filename": "1759617393684-ebtk6f4.jpg",
-      "url": "/uploads/1759617393684-ebtk6f4.jpg",
+      "id": "1760755219830-qgacpikdc",
+      "name": "jose",
+      "filename": "1760755219826-s8fojcq.jpg",
+      "url": "/uploads/1760755219826-s8fojcq.jpg",
       "ronda": 2,
       "votes": 0
-    },
-    {
-      "id": "1759617398653-v6j0f7znf",
-      "name": "diego",
-      "filename": "1759617398645-d3xqaxt.jpg",
-      "url": "/uploads/1759617398645-d3xqaxt.jpg",
-      "ronda": 3,
-      "votes": 0
-    },
-    {
-      "id": "1759617403192-y2kgowjht",
-      "name": "diego",
-      "filename": "1759617403186-s0lkr5m.jpg",
-      "url": "/uploads/1759617403186-s0lkr5m.jpg",
-      "ronda": 4,
-      "votes": 2
-    },
-    {
-      "id": "1759617437201-1k68upocf",
-      "name": "fabian",
-      "filename": "1759617437194-b8itzyd.jpg",
-      "url": "/uploads/1759617437194-b8itzyd.jpg",
-      "ronda": 1,
-      "votes": 2
-    },
-    {
-      "id": "1759617442383-gxlekfd62",
-      "name": "fabian",
-      "filename": "1759617442378-ybwswkf.jpg",
-      "url": "/uploads/1759617442378-ybwswkf.jpg",
-      "ronda": 2,
-      "votes": 0
-    },
-    {
-      "id": "1759617447584-cidv1qp2c",
-      "name": "fabian",
-      "filename": "1759617447580-nty7ip0.jpg",
-      "url": "/uploads/1759617447580-nty7ip0.jpg",
-      "ronda": 3,
-      "votes": 1
-    },
-    {
-      "id": "1759617455060-bvp7tlcwh",
-      "name": "fabian",
-      "filename": "1759617455054-8zcit31.jpg",
-      "url": "/uploads/1759617455054-8zcit31.jpg",
-      "ronda": 4,
-      "votes": 0
-    },
-    {
-      "id": "1759617488038-tx3ia97vz",
-      "name": "jose",
-      "filename": "1759617488031-t2gv6jg.jpg",
-      "url": "/uploads/1759617488031-t2gv6jg.jpg",
-      "ronda": 1,
-      "votes": 0
-    },
-    {
-      "id": "1759617492470-4mizk02d3",
-      "name": "jose",
-      "filename": "1759617492457-9mdz760.jpg",
-      "url": "/uploads/1759617492457-9mdz760.jpg",
-      "ronda": 2,
-      "votes": 3
-    },
-    {
-      "id": "1759617498186-lwe5jw0bg",
-      "name": "jose",
-      "filename": "1759617498168-368g2hl.jpg",
-      "url": "/uploads/1759617498168-368g2hl.jpg",
-      "ronda": 3,
-      "votes": 3
-    },
-    {
-      "id": "1759617504149-elekmc6bq",
-      "name": "jose",
-      "filename": "1759617504145-wht30vm.jpg",
-      "url": "/uploads/1759617504145-wht30vm.jpg",
-      "ronda": 4,
-      "votes": 1
     }
   ],
   "votes": [
     {
-      "id": "1759617744037-vmk855sdk",
-      "imageId": "1759617341776-f9jaua1r1",
+      "id": "1760755248688-6dw1pgfno",
+      "imageId": "1760755153027-emeyrrz97",
       "voterName": "jose",
       "ronda": 1,
-      "ts": 1759617744037
+      "ts": 1760755248688
     },
     {
-      "id": "1759617747925-6ywrwlq9t",
-      "imageId": "1759617347833-wgt7re62b",
+      "id": "1760755271404-pf3k1zqsb",
+      "imageId": "1760755214800-wv8o61yst",
+      "voterName": "andres",
+      "ronda": 1,
+      "ts": 1760755271404
+    },
+    {
+      "id": "1760755311795-7hs9orfaz",
+      "imageId": "1760755159081-tcdbwetkj",
       "voterName": "jose",
       "ronda": 2,
-      "ts": 1759617747925
-    },
-    {
-      "id": "1759617751371-3wc9aqee0",
-      "imageId": "1759617447584-cidv1qp2c",
-      "voterName": "jose",
-      "ronda": 3,
-      "ts": 1759617751371
-    },
-    {
-      "id": "1759617756066-bczhq03jh",
-      "imageId": "1759617315621-8pe4vomwq",
-      "voterName": "jose",
-      "ronda": 4,
-      "ts": 1759617756066
-    },
-    {
-      "id": "1759617769806-l80ay1z69",
-      "imageId": "1759617388624-5fhfioqrh",
-      "voterName": "fabian",
-      "ronda": 1,
-      "ts": 1759617769806
-    },
-    {
-      "id": "1759617774904-a0f6xu5v7",
-      "imageId": "1759617302658-5lcv7mu1k",
-      "voterName": "fabian",
-      "ronda": 2,
-      "ts": 1759617774904
-    },
-    {
-      "id": "1759617781214-r9gyuuq6m",
-      "imageId": "1759617498186-lwe5jw0bg",
-      "voterName": "fabian",
-      "ronda": 3,
-      "ts": 1759617781214
-    },
-    {
-      "id": "1759617785731-n4q0fvtrn",
-      "imageId": "1759617403192-y2kgowjht",
-      "voterName": "fabian",
-      "ronda": 4,
-      "ts": 1759617785731
-    },
-    {
-      "id": "1759617815174-7s15e8hvk",
-      "imageId": "1759617437201-1k68upocf",
-      "voterName": "diego",
-      "ronda": 1,
-      "ts": 1759617815174
-    },
-    {
-      "id": "1759617819245-bu56gmuik",
-      "imageId": "1759617492470-4mizk02d3",
-      "voterName": "diego",
-      "ronda": 2,
-      "ts": 1759617819245
-    },
-    {
-      "id": "1759617825578-h9jjjoul1",
-      "imageId": "1759617307490-7uqmybqia",
-      "voterName": "diego",
-      "ronda": 3,
-      "ts": 1759617825578
-    },
-    {
-      "id": "1759617834575-b3cb7d35g",
-      "imageId": "1759617315621-8pe4vomwq",
-      "voterName": "diego",
-      "ronda": 4,
-      "ts": 1759617834575
-    },
-    {
-      "id": "1759617852556-c3k9r23uv",
-      "imageId": "1759617388624-5fhfioqrh",
-      "voterName": "antonio",
-      "ronda": 1,
-      "ts": 1759617852556
-    },
-    {
-      "id": "1759617858622-ntol1df0t",
-      "imageId": "1759617492470-4mizk02d3",
-      "voterName": "antonio",
-      "ronda": 2,
-      "ts": 1759617858622
-    },
-    {
-      "id": "1759617861122-e1zncc0nn",
-      "imageId": "1759617498186-lwe5jw0bg",
-      "voterName": "antonio",
-      "ronda": 3,
-      "ts": 1759617861122
-    },
-    {
-      "id": "1759617867537-d0l1gkrlq",
-      "imageId": "1759617504149-elekmc6bq",
-      "voterName": "antonio",
-      "ronda": 4,
-      "ts": 1759617867537
-    },
-    {
-      "id": "1759617881254-qjnieozje",
-      "imageId": "1759617437201-1k68upocf",
-      "voterName": "andres",
-      "ronda": 1,
-      "ts": 1759617881254
-    },
-    {
-      "id": "1759617890559-eduwo8i91",
-      "imageId": "1759617492470-4mizk02d3",
-      "voterName": "andres",
-      "ronda": 2,
-      "ts": 1759617890559
-    },
-    {
-      "id": "1759617895657-bw473n5yl",
-      "imageId": "1759617498186-lwe5jw0bg",
-      "voterName": "andres",
-      "ronda": 3,
-      "ts": 1759617895657
-    },
-    {
-      "id": "1759617901112-gztye1n4i",
-      "imageId": "1759617403192-y2kgowjht",
-      "voterName": "andres",
-      "ronda": 4,
-      "ts": 1759617901112
+      "ts": 1760755311795
     }
   ],
   "themes": [
     {
       "id": "t1r1",
       "ronda": 1,
-      "title": "Un animal en una situación inesperada",
-      "imageUrl": "/themes/r1-animal.jpg",
-      "votes": 3
+      "title": "Mascota en el Paraíso",
+      "imageUrl": "/themes/r1-mascota.jpg",
+      "votes": 1
     },
     {
       "id": "t2r1",
       "ronda": 1,
-      "title": "Un lugar mágico en la naturaleza",
-      "imageUrl": "/themes/r1-magia.jpg",
+      "title": "Paisaje de Fantasía",
+      "imageUrl": "/themes/r1-paisaje.jpg",
       "votes": 1
     },
     {
       "id": "t3r1",
       "ronda": 1,
-      "title": "Un retrato en estilo caricaturesco",
-      "imageUrl": "/themes/r1-caricatura.jpg",
-      "votes": 1
+      "title": "Gigantes Cotidianos",
+      "imageUrl": "/themes/r1-gigante.jpg",
+      "votes": 0
     },
     {
       "id": "t1r2",
       "ronda": 2,
-      "title": "Una ciudad futurista al atardecer",
-      "imageUrl": "/themes/r2-ciudad.jpg",
-      "votes": 1
+      "title": "Futuro al Atardecer",
+      "imageUrl": "/themes/r2-futuro.jpg",
+      "votes": 0
     },
     {
       "id": "t2r2",
       "ronda": 2,
-      "title": "Un héroe o villano original",
-      "imageUrl": "/themes/r2-heroe.jpg",
-      "votes": 3
+      "title": "Misterio Lluvioso",
+      "imageUrl": "/themes/r2-misterio.jpg",
+      "votes": 2
     },
     {
       "id": "t3r2",
       "ronda": 2,
-      "title": "Un festival cultural imaginario",
-      "imageUrl": "/themes/r2-festival.jpg",
-      "votes": 1
+      "title": "Fiesta y Tradición",
+      "imageUrl": "/themes/r2-fiesta.jpg",
+      "votes": 0
     },
     {
       "id": "t1r3",
       "ronda": 3,
-      "title": "El encuentro entre dos épocas históricas",
-      "imageUrl": "/themes/r3-epocas.jpg",
-      "votes": 3
+      "title": "Choque de Eras",
+      "imageUrl": "/themes/r3-choque.jpg",
+      "votes": 1
     },
     {
       "id": "t2r3",
       "ronda": 3,
-      "title": "Un sueño convertido en realidad",
+      "title": "Sueños de Arte",
       "imageUrl": "/themes/r3-sueno.jpg",
-      "votes": 1
+      "votes": 0
     },
     {
       "id": "t3r3",
       "ronda": 3,
-      "title": "El fin del mundo en estilo artístico específico",
-      "imageUrl": "/themes/r3-findelmundo.jpg",
-      "votes": 1
+      "title": "Cena Cinematográfica",
+      "imageUrl": "/themes/r3-cena.jpg",
+      "votes": 0
     },
     {
       "id": "t1r4",
       "ronda": 4,
-      "title": "Un universo paralelo con sus propias reglas",
-      "imageUrl": "/themes/r4-universo.jpg",
-      "votes": 3
+      "title": "Retrato",
+      "imageUrl": "/themes/r4-retrato.jpg",
+      "votes": 0
     },
     {
       "id": "t2r4",
       "ronda": 4,
-      "title": "Retrato colectivo: 'La humanidad en 2100'",
+      "title": "Humanidad 2100",
       "imageUrl": "/themes/r4-humanidad.jpg",
-      "votes": 1
+      "votes": 0
     },
     {
       "id": "t3r4",
       "ronda": 4,
-      "title": "La batalla definitiva: IA vs. humanos",
-      "imageUrl": "/themes/r4-batalla.jpg",
-      "votes": 1
+      "title": "Guerra de Máquinas",
+      "imageUrl": "/themes/r4-guerra.jpg",
+      "votes": 0
     }
   ],
   "themeVotes": [
     {
-      "userId": "1759616804528",
+      "userId": "1760755146057",
       "ronda": 1,
       "themeId": "t1r1"
     },
     {
-      "userId": "1759616804528",
+      "userId": "1760755146057",
       "ronda": 2,
       "themeId": "t2r2"
     },
     {
-      "userId": "1759616804528",
-      "ronda": 3,
-      "themeId": "t3r3"
-    },
-    {
-      "userId": "1759616804528",
-      "ronda": 4,
-      "themeId": "t1r4"
-    },
-    {
-      "userId": "1759616816443",
+      "userId": "1760755207919",
       "ronda": 1,
       "themeId": "t2r1"
     },
     {
-      "userId": "1759616816443",
-      "ronda": 2,
-      "themeId": "t3r2"
-    },
-    {
-      "userId": "1759616816443",
-      "ronda": 3,
-      "themeId": "t1r3"
-    },
-    {
-      "userId": "1759616816443",
-      "ronda": 4,
-      "themeId": "t1r4"
-    },
-    {
-      "userId": "1759616824677",
-      "ronda": 1,
-      "themeId": "t1r1"
-    },
-    {
-      "userId": "1759616824677",
-      "ronda": 2,
-      "themeId": "t1r2"
-    },
-    {
-      "userId": "1759616824677",
-      "ronda": 3,
-      "themeId": "t1r3"
-    },
-    {
-      "userId": "1759616824677",
-      "ronda": 4,
-      "themeId": "t2r4"
-    },
-    {
-      "userId": "1759616831651",
-      "ronda": 1,
-      "themeId": "t1r1"
-    },
-    {
-      "userId": "1759616831651",
+      "userId": "1760755207919",
       "ronda": 2,
       "themeId": "t2r2"
     },
     {
-      "userId": "1759616831651",
+      "userId": "1760755207919",
       "ronda": 3,
       "themeId": "t1r3"
-    },
-    {
-      "userId": "1759616831651",
-      "ronda": 4,
-      "themeId": "t3r4"
-    },
-    {
-      "userId": "1759616836201",
-      "ronda": 1,
-      "themeId": "t3r1"
-    },
-    {
-      "userId": "1759616836201",
-      "ronda": 2,
-      "themeId": "t2r2"
-    },
-    {
-      "userId": "1759616836201",
-      "ronda": 3,
-      "themeId": "t2r3"
-    },
-    {
-      "userId": "1759616836201",
-      "ronda": 4,
-      "themeId": "t1r4"
     }
   ]
 }

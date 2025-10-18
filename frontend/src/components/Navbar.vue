@@ -11,12 +11,12 @@
 
       <nav class="flex items-center gap-6">
 
-        <div v-if="isAuthenticated" class="flex items-center gap-6">
-          <RouterLink to="/participar" class="text-gray-700 font-medium hover:text-indigo-600">
-            Participar
-          </RouterLink>
+        <div v-if="isAuthenticated" class="flex items-center gap-6">          
           <RouterLink to="/temas" class="text-gray-700 font-medium hover:text-indigo-600">
             Temas
+          </RouterLink>
+          <RouterLink to="/participar" class="text-gray-700 font-medium hover:text-indigo-600">
+            Participar
           </RouterLink>
           <RouterLink to="/votaciones" class="text-gray-700 font-medium hover:text-indigo-600">
             Votaciones

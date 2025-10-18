@@ -51,7 +51,7 @@ import { toast } from 'vue3-toastify';
 import { useRouter } from 'vue-router';
 import { login } from '../store/auth.js'; 
 
-const API_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL;
 const router = useRouter();
 
 const isRegistering = ref(false);

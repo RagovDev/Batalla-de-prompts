@@ -86,7 +86,7 @@
 import { ref, onMounted, computed } from "vue";
 import { isAuthenticated } from '../store/auth.js';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL;
 const allScores = ref([]);
 const loading = ref(true);
 const error = ref(null);
