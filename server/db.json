@@ -9,6 +9,11 @@
       "id": "1760755207919",
       "name": "jose",
       "password": "$2b$10$35vgLX5ZUyGlq998Cbl20eR4cxZv5eAvHHuvVrabMuLACVA9tw7F6"
+    },
+    {
+      "id": "1760755815115",
+      "name": "antonio",
+      "password": "$2b$10$OcDihq166iIeTF9oT4c30umpQ.ie7bbN1OfYfO709khAEn5pLnxRe"
     }
   ],
   "images": [
@@ -34,13 +39,29 @@
       "filename": "1760755214796-syjv0o0.jpg",
       "url": "/uploads/1760755214796-syjv0o0.jpg",
       "ronda": 1,
-      "votes": 1
+      "votes": 2
     },
     {
       "id": "1760755219830-qgacpikdc",
       "name": "jose",
       "filename": "1760755219826-s8fojcq.jpg",
       "url": "/uploads/1760755219826-s8fojcq.jpg",
+      "ronda": 2,
+      "votes": 1
+    },
+    {
+      "id": "1760755852564-a2o91pxss",
+      "name": "antonio",
+      "filename": "1760755852553-ag675ic.jpg",
+      "url": "/uploads/1760755852553-ag675ic.jpg",
+      "ronda": 1,
+      "votes": 0
+    },
+    {
+      "id": "1760755858339-lg77ivvzo",
+      "name": "antonio",
+      "filename": "1760755858335-8hne7rn.jpg",
+      "url": "/uploads/1760755858335-8hne7rn.jpg",
       "ronda": 2,
       "votes": 0
     }
@@ -66,6 +87,20 @@
       "voterName": "jose",
       "ronda": 2,
       "ts": 1760755311795
+    },
+    {
+      "id": "1760755870367-17e25rayg",
+      "imageId": "1760755214800-wv8o61yst",
+      "voterName": "antonio",
+      "ronda": 1,
+      "ts": 1760755870367
+    },
+    {
+      "id": "1760755875946-omdvpco1h",
+      "imageId": "1760755219830-qgacpikdc",
+      "voterName": "antonio",
+      "ronda": 2,
+      "ts": 1760755875946
     }
   ],
   "themes": [
@@ -74,7 +109,7 @@
       "ronda": 1,
       "title": "Mascota en el Paraíso",
       "imageUrl": "/themes/r1-mascota.jpg",
-      "votes": 1
+      "votes": 2
     },
     {
       "id": "t2r1",
@@ -95,7 +130,7 @@
       "ronda": 2,
       "title": "Futuro al Atardecer",
       "imageUrl": "/themes/r2-futuro.jpg",
-      "votes": 0
+      "votes": 1
     },
     {
       "id": "t2r2",
@@ -123,7 +158,7 @@
       "ronda": 3,
       "title": "Sueños de Arte",
       "imageUrl": "/themes/r3-sueno.jpg",
-      "votes": 0
+      "votes": 1
     },
     {
       "id": "t3r3",
@@ -179,6 +214,21 @@
       "userId": "1760755207919",
       "ronda": 3,
       "themeId": "t1r3"
+    },
+    {
+      "userId": "1760755815115",
+      "ronda": 1,
+      "themeId": "t1r1"
+    },
+    {
+      "userId": "1760755815115",
+      "ronda": 2,
+      "themeId": "t1r2"
+    },
+    {
+      "userId": "1760755815115",
+      "ronda": 3,
+      "themeId": "t2r3"
     }
   ]
 }
