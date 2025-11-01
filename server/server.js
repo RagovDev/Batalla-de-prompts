@@ -29,8 +29,8 @@ app.use(cors(corsOptions));
 
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const DB_FILE = path.join(__dirname, 'db.json');
-
 const JWT_SECRET = '-UT&7?$1,zmZksN[P(uv~c(ktsfXZ8/Z';
+
 
 /**
  * MIDDLEWARE DE AUTENTICACIÓN
@@ -100,6 +100,7 @@ app.use('/uploads', express.static(UPLOAD_DIR));
  * Subir imagen a una ronda:
  * POST /api/rondas/:ronda/upload
  * FormData: image (file), name (participant name)
+ * Migracion OK
  */
 app.post('/api/rondas/:ronda/upload', authMiddleware, upload.single('image'), async (req, res) => {
   const { ronda } = req.params;
@@ -164,9 +165,11 @@ app.delete('/api/images/:id', authMiddleware, async (req, res) => {
   }
 });
 
+
 /**
  * Listar imágenes de una ronda
  * GET /api/rondas/:ronda/images
+ * Migracion OK
  */
 app.get('/api/rondas/:ronda/images', async (req, res) => {
   const db = await readDB();
@@ -286,6 +289,7 @@ function computeScores(db) {
  * REGISTRO DE NUEVOS USUARIOS
  * POST /api/register
  * body: { name, password }
+ * Migracion OK
  */
 app.post('/api/register', async (req, res) => {
   const { name, password } = req.body;
@@ -324,6 +328,7 @@ app.post('/api/register', async (req, res) => {
  * LOGIN DE USUARIOS
  * POST /api/login
  * body: { name, password }
+ * Migracion OK
  */
 app.post('/api/login', async (req, res) => {
   const { name, password } = req.body;
@@ -484,6 +489,7 @@ app.get('/api/stats', async (req, res) => {
     res.status(500).json({ message: "Error al obtener estadísticas." });
   }
 });
+
 
 /**
  * GET /api/stats/temas/:ronda

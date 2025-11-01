@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
+        // Esto carga el middleware de sesión en el grupo 'api'
+        $middleware->appendToGroup('api', [
+            \Illuminate\Session\Middleware\StartSession::class,
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {

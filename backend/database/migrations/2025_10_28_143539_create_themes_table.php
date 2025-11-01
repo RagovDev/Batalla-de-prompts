@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('themes', function (Blueprint $table) {
-            $table->id(); // O puedes usar un ID de string como antes ('t1r1')
+            $table->id(); 
             $table->integer('ronda');
             $table->string('title');
             $table->string('image_url')->nullable(); // Ruta a la imagen de muestra

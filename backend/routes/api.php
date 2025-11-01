@@ -6,23 +6,8 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VoteController;        
 use App\Http\Controllers\ThemeController;      
 use App\Http\Controllers\DashboardController;   
-use App\Http\Controllers\StatsController;      
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Public routes for authentication (handled by Breeze/Sanctum)
-// Route::post('/register', ...); // Assuming Breeze handles this
-// Route::post('/login', ...);    // Assuming Breeze handles this
-// Route::post('/logout', ...);   // Assuming Breeze handles this
+use App\Http\Controllers\StatsController;  
+use App\Http\Controllers\Api\AuthController;    
 
 // Routes that don't necessarily require authentication
 Route::get('/rondas/{ronda}/images', [ImageController::class, 'index']);
@@ -30,6 +15,8 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/stats', [StatsController::class, 'index']);
 Route::get('/stats/temas/{ronda}', [StatsController::class, 'themeVotesByRound']);
 Route::get('/stats/images/{ronda}', [StatsController::class, 'imageVotesByRound']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 // Routes protected by authentication (require a valid Sanctum token)
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -39,7 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     // Image Upload & Deletion
-    Route::post('/rondas/{ronda}/upload', [ImageController::class, 'upload']);
+    Route::post('/rondas/{ronda}/images', [ImageController::class, 'store']);
     Route::delete('/images/{image}', [ImageController::class, 'destroy']); 
 
     // Image Voting
@@ -51,4 +38,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/temas/votar', [ThemeController::class, 'vote']);
 
 });
-
