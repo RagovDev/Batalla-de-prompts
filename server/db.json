@@ -112,125 +112,95 @@
   ],
   "themes": [
     {
-      "id": "t1r1",
+      "id": "r1t1",
       "ronda": 1,
-      "title": "Mascota en el Paraíso",
-      "imageUrl": "/themes/r1-mascota.jpg",
-      "votes": 2
+      "title": "El rincón tranquilo",
+      "imageUrl": "/themes/r1t1.jpg",
+      "votes": 0
     },
     {
-      "id": "t2r1",
+      "id": "r1t2",
       "ronda": 1,
-      "title": "Paisaje de Fantasía",
-      "imageUrl": "/themes/r1-paisaje.jpg",
-      "votes": 1
+      "title": "Un visitante silencioso",
+      "imageUrl": "/themes/r1t2.jpg",
+      "votes": 0
     },
     {
-      "id": "t3r1",
+      "id": "r1t3",
       "ronda": 1,
-      "title": "Gigantes Cotidianos",
-      "imageUrl": "/themes/r1-gigante.jpg",
+      "title": "Memoria de las cosas simples",
+      "imageUrl": "/themes/r1t3.jpg",
       "votes": 0
     },
     {
-      "id": "t1r2",
+      "id": "r2t1",
       "ronda": 2,
-      "title": "Futuro al Atardecer",
-      "imageUrl": "/themes/r2-futuro.jpg",
+      "title": "Sombras que respiran (Comic)",
+      "imageUrl": "/themes/r2t1.jpg",
       "votes": 0
     },
     {
-      "id": "t2r2",
+      "id": "r2t2",
       "ronda": 2,
-      "title": "Misterio Lluvioso",
-      "imageUrl": "/themes/r2-misterio.jpg",
+      "title": "La lluvia y sus secretos (Manhwa)",
+      "imageUrl": "/themes/r2t2.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r2t3",
+      "ronda": 2,
+      "title": "Puertas entreabiertas (Graphic novel) ",
+      "imageUrl": "/themes/r2t3.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r3t1",
+      "ronda": 3,
+      "title": "Geometría del sueño",
+      "imageUrl": "/themes/r3t1.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r3t2",
+      "ronda": 3,
+      "title": "La belleza del error",
+      "imageUrl": "/themes/r3t2.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r3t3",
+      "ronda": 3,
+      "title": "El espejo que recuerda",
+      "imageUrl": "/themes/r3t3.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r4t1",
+      "ronda": 4,
+      "title": "El rumor de las estrellas",
+      "imageUrl": "/themes/r4t1.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r4t2",
+      "ronda": 4,
+      "title": "Como sueña el tiempo",
+      "imageUrl": "/themes/r4t2.jpg",
+      "votes": 0
+    },
+    {
+      "id": "r4t3",
+      "ronda": 4,
+      "title": "El canto de la materia",
+      "imageUrl": "/themes/r4t3.jpg",
       "votes": 1
-    },
-    {
-      "id": "t3r2",
-      "ronda": 2,
-      "title": "Fiesta y Tradición",
-      "imageUrl": "/themes/r2-fiesta.jpg",
-      "votes": 2
-    },
-    {
-      "id": "t1r3",
-      "ronda": 3,
-      "title": "Choque de Eras",
-      "imageUrl": "/themes/r3-choque.jpg",
-      "votes": 1
-    },
-    {
-      "id": "t2r3",
-      "ronda": 3,
-      "title": "Sueños de Arte",
-      "imageUrl": "/themes/r3-sueno.jpg",
-      "votes": 0
-    },
-    {
-      "id": "t3r3",
-      "ronda": 3,
-      "title": "Cena Cinematográfica",
-      "imageUrl": "/themes/r3-cena.jpg",
-      "votes": 0
-    },
-    {
-      "id": "t1r4",
-      "ronda": 4,
-      "title": "Retrato",
-      "imageUrl": "/themes/r4-retrato.jpg",
-      "votes": 0
-    },
-    {
-      "id": "t2r4",
-      "ronda": 4,
-      "title": "Humanidad 2100",
-      "imageUrl": "/themes/r4-humanidad.jpg",
-      "votes": 0
-    },
-    {
-      "id": "t3r4",
-      "ronda": 4,
-      "title": "Guerra de Máquinas",
-      "imageUrl": "/themes/r4-guerra.jpg",
-      "votes": 0
     }
   ],
   "themeVotes": [
     {
-      "userId": "1761752810723",
-      "ronda": 1,
-      "themeId": "t1r1"
-    },
-    {
       "userId": "1761752702989",
-      "ronda": 1,
-      "themeId": "t1r1"
-    },
-    {
-      "userId": "1761752767460",
-      "ronda": 1,
-      "themeId": "t2r1"
-    },
-    {
-      "userId": "1761752767460",
-      "ronda": 2,
-      "themeId": "t2r2"
-    },
-    {
-      "userId": "1761752810723",
-      "ronda": 2,
-      "themeId": "t3r2"
-    },
-    {
-      "userId": "1761752702989",
-      "ronda": 2,
-      "themeId": "t3r2"
-    },
-    {
-      "userId": "1761752810723",
-      "ronda": 3,
-      "themeId": "t1r3"
+      "ronda": 4,
+      "themeId": "r4t3"
     }
   ]
 }
