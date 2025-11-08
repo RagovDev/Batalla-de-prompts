@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Vote;
 
 class User extends Authenticatable
 {
@@ -58,5 +59,21 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn (string $value) => Hash::make($value),
         );
+    }
+
+    /**
+     * Define la relación: un usuario puede tener muchas imágenes.
+     */
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    /**
+     * Define la relación: un usuario puede emitir muchos votos.
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
     }
 }

@@ -100,6 +100,7 @@ app.use('/uploads', express.static(UPLOAD_DIR));
  * Subir imagen a una ronda:
  * POST /api/rondas/:ronda/upload
  * FormData: image (file), name (participant name)
+ * 
  * Migracion OK
  */
 app.post('/api/rondas/:ronda/upload', authMiddleware, upload.single('image'), async (req, res) => {
@@ -135,6 +136,8 @@ app.post('/api/rondas/:ronda/upload', authMiddleware, upload.single('image'), as
  * - Borra la imagen de la DB
  * - Borra el archivo físico del disco
  * - Borra los votos asociados
+ * 
+ * Migracion OK
  */
 app.delete('/api/images/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
@@ -169,6 +172,7 @@ app.delete('/api/images/:id', authMiddleware, async (req, res) => {
 /**
  * Listar imágenes de una ronda
  * GET /api/rondas/:ronda/images
+ * 
  * Migracion OK
  */
 app.get('/api/rondas/:ronda/images', async (req, res) => {
@@ -184,6 +188,8 @@ app.get('/api/rondas/:ronda/images', async (req, res) => {
  * POST /api/vote
  * body: { imageId, voterName }
  * - impide doble voto por misma imagen+voterName
+ * 
+ * Migracion OK
  */
 app.post('/api/vote', async (req, res) => {
   const { imageId, voterName } = req.body;
@@ -289,6 +295,7 @@ function computeScores(db) {
  * REGISTRO DE NUEVOS USUARIOS
  * POST /api/register
  * body: { name, password }
+ * 
  * Migracion OK
  */
 app.post('/api/register', async (req, res) => {
@@ -328,6 +335,7 @@ app.post('/api/register', async (req, res) => {
  * LOGIN DE USUARIOS
  * POST /api/login
  * body: { name, password }
+ * 
  * Migracion OK
  */
 app.post('/api/login', async (req, res) => {
@@ -450,6 +458,8 @@ app.post('/api/temas/votar', authMiddleware, async (req, res) => {
 /**
  * GET /api/me/votes
  * Devuelve el historial de votos del usuario autenticado.
+ * 
+ * Migracion OK
  */
 app.get('/api/me/votes', authMiddleware, async (req, res) => {
   const userId = req.user.id;

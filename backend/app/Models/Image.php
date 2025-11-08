@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Models\User;
+use App\Models\Vote;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,10 +19,19 @@ class Image extends Model
         'votes',
     ];
 
+    /**
+     * Define la relación inversa: una imagen pertenece a un usuario.
+     */
     public function user()
     {
-        // Define que este modelo (Image) pertenece a un modelo User.
-        // Laravel asumirá que la clave foránea es 'user_id' por convención.
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Define la relación: una imagen puede tener muchos votos.
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
     }
 }

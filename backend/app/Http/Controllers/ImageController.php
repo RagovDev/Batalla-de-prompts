@@ -105,10 +105,26 @@ class ImageController extends Controller
     }
 
     /**
+     * Borra una imagen específica.
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Image $image)
     {
-        //
+        // 1. AUTORIZACIÓN
+        // Llama a la 'ImagePolicy' que creamos.
+        // Si el usuario no es el dueño, Laravel devolverá un 403 automáticamente.
+        $this->authorize('delete', $image);
+
+        // 2. BORRAR EL ARCHIVO FÍSICO 
+        // Usamos la columna 'image_url' que guarda la ruta (ej: 'uploads/archivo.jpg')
+        Storage::disk('public')->delete($image->image_url);
+
+        // 3. BORRAR DE LA BASE DE DATOS 
+        // Al borrar la imagen, MySQL (gracias a 'onDelete('cascade')' 
+        // en tu migración) borrará automáticamente todos los votos asociados.
+        $image->delete();
+
+        // 4. DEVOLVER RESPUESTA 
+        return response()->json(['success' => true, 'message' => 'Imagen borrada correctamente.'], 200);
     }
 }
