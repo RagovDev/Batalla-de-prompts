@@ -388,6 +388,8 @@ app.get('/api/images', async (req, res) => {
  * GET /api/temas/:ronda
  * Obtiene los temas para una ronda específica y el estado de voto del usuario.
  * Protegido por autenticación.
+ * 
+ * Migracion OK
  */
 app.get('/api/temas/:ronda', authMiddleware, async (req, res) => {
   const { ronda } = req.params;
@@ -415,6 +417,8 @@ app.get('/api/temas/:ronda', authMiddleware, async (req, res) => {
  * Registra el voto de un usuario para un tema en una ronda.
  * Protegido por autenticación.
  * body: { themeId }
+ * 
+ * Migracion OK  
  */
 app.post('/api/temas/votar', authMiddleware, async (req, res) => {
   const { themeId } = req.body;
@@ -481,6 +485,8 @@ app.get('/api/me/votes', authMiddleware, async (req, res) => {
 /**
  * GET /api/stats
  * Devuelve estadísticas básicas: total de participantes, total votos emitidos en temas y total de votos emitidos.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats', async (req, res) => {
   try {
@@ -504,6 +510,8 @@ app.get('/api/stats', async (req, res) => {
 /**
  * GET /api/stats/temas/:ronda
  * Devuelve el número total de votos emitidos para temas en una ronda específica.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats/temas/:ronda', async (req, res) => {
   const { ronda } = req.params;
@@ -526,6 +534,8 @@ app.get('/api/stats/temas/:ronda', async (req, res) => {
 /**
  * GET /api/stats/images/:ronda
  * Devuelve el número total de votos emitidos para imágenes en una ronda específica.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats/images/:ronda', async (req, res) => {
   const { ronda } = req.params;
