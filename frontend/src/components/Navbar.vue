@@ -11,7 +11,7 @@
 
       <nav class="flex items-center gap-6">
 
-        <div v-if="isAuthenticated" class="flex items-center gap-6">          
+        <div v-if="isAuthenticated" class="flex items-center gap-6">
           <RouterLink to="/temas" class="text-gray-700 font-medium hover:text-indigo-600">
             Temas
           </RouterLink>
@@ -23,6 +23,9 @@
           </RouterLink>
           <RouterLink to="/resultados" class="text-gray-700 font-medium hover:text-indigo-600">
             Resultados
+          </RouterLink>          
+          <RouterLink v-if="isAdmin" to="/admin" class="font-medium text-red-600 hover:text-red-700">
+            Admin
           </RouterLink>
 
           <div class="h-6 w-px bg-gray-200"></div>
@@ -36,13 +39,13 @@
         </div>
 
         <div v-else>
-  <RouterLink 
-    to="/login" 
-    class="login-button px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-full shadow hover:bg-blue-700"
-  >
-    Iniciar Sesión
-  </RouterLink>
-</div>
+          <RouterLink 
+            to="/login" 
+            class="login-button px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-full shadow hover:bg-blue-700"
+          >
+            Iniciar Sesión
+          </RouterLink>
+        </div>
 
       </nav>
     </div>
@@ -51,13 +54,15 @@
 
 <script setup>
 import { RouterLink, useRouter } from "vue-router";
-import { isAuthenticated, currentUser, logout } from '../store/auth.js';
+import { isAuthenticated, currentUser, isAdminUser, logout } from '../store/auth.js';
 
 const router = useRouter();
+const isAdmin = isAdminUser;
 
-function handleLogout() {
-  router.push('/login');
-  logout();
+// Se actualiza 'handleLogout' para que sea 'async' y evite "parpadeos"
+async function handleLogout() {
+  await router.push('/login'); // 1. Navega a la página de login primero
+  logout();                   // 2. Limpia el estado de autenticación después
 }
 </script>
 

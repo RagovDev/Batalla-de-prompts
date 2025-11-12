@@ -32,6 +32,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/*' 
         ]);
         // ======================================================================
+
+        // Esto para saber si el usuario que se logea tiene rol de admin
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\CheckIsAdmin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

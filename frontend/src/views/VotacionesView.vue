@@ -7,7 +7,7 @@
       </div>
 
       <div
-        class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm shadow">
+        class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4 text-center text-sm shadow">
         <div>
           <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Participantes</span>
           <span class="block text-xl font-bold text-blue-600 mt-1">{{ stats.totalParticipants }}</span>
@@ -16,10 +16,6 @@
           <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Votos Imágenes (Ronda {{
             selectedRound }})</span>
           <span class="block text-xl font-bold text-blue-600 mt-1">{{ roundImageVotes }}</span>
-        </div>
-        <div>
-          <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Votos Totales (Temas)</span>
-          <span class="block text-xl font-bold text-blue-600 mt-1">{{ stats.totalThemeVotes }}</span>
         </div>
       </div>
 

@@ -57,6 +57,7 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { login } from '../store/auth.js'; 
+import { toast } from 'vue3-toastify';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const router = useRouter();
@@ -109,7 +110,7 @@ async function handleSubmit() {
       if (!response.ok) throw new Error(data.message || 'Error en el registro.');
 
       // Éxito en el registro
-      alert('¡Registro exitoso! Ahora, por favor inicia sesión.');
+      toast.success('¡Registro exitoso!'); 
       toggleMode(); // Cambia al formulario de login
 
     } catch (err) {
