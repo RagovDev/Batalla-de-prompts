@@ -35,7 +35,7 @@
               <th class="px-6 py-3 text-center">Puntuación Ronda 2</th>
               <th class="px-6 py-3 text-center">Puntuación Ronda 3</th>
               <th class="px-6 py-3 text-center">Puntuación Ronda 4</th>
-              <th class="px-6 py-3 text-center">PUNTUACIÓN TOTAL FINAL</th>
+              <th class="px-6 py-3 text-center">Total (Clasificación)</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
@@ -95,26 +95,30 @@ const activeView = ref('all');
 const displayedData = computed(() => {
   if (!allScores.value) return [];
 
+  // Vista de "Todas las Rondas"
   if (activeView.value === 'all') {
     const summaryData = allScores.value.map(p => ({
       name: p.name,
-      round1: p.roundData[1].finalScore,
-      round2: p.roundData[2].finalScore,
-      round3: p.roundData[3].finalScore,
-      round4: p.roundData[4].finalScore,
+      // CAMBIO: Se añade `?.` y `|| 0` para evitar errores si los datos no existen
+      round1: p.roundData[1]?.finalScore || 0,
+      round2: p.roundData[2]?.finalScore || 0,
+      round3: p.roundData[3]?.finalScore || 0,
+      round4: p.roundData[4]?.finalScore || 0,
       total: p.total
     }));
     return summaryData.sort((a, b) => b.total - a.total);
   }
   
+  // Vista de cada ronda
   const round = activeView.value;
   return allScores.value
     .map(p => ({
       name: p.name,
-      votes: p.roundData[round].votes,
-      points: p.roundData[round].points,
-      finalScore: p.roundData[round].finalScore,
-      rankingScore: p.roundData[round].votes * round
+      // CAMBIO: Se añade `?.` y `|| 0` para evitar errores
+      votes: p.roundData[round]?.votes || 0,
+      points: p.roundData[round]?.points || 0,
+      finalScore: p.roundData[round]?.finalScore || 0,
+      rankingScore: (p.roundData[round]?.votes || 0) * round
     }))
     .sort((a, b) => b.rankingScore - a.rankingScore); 
 });
@@ -123,6 +127,7 @@ async function fetchDashboardData() {
   loading.value = true;
   error.value = null;
   try {
+    // Esta ruta es pública en Laravel, no necesita token
     const response = await fetch(`${API_URL}/api/dashboard`);
     if (!response.ok) throw new Error('No se pudo conectar con el servidor.');
     
@@ -137,8 +142,8 @@ async function fetchDashboardData() {
 }
 
 onMounted(() => {
-  if (isAuthenticated.value) {
-    fetchDashboardData();
-  }
+  // Esta vista está protegida por v-if="isAuthenticated",
+  // así que podemos asumir que el usuario está logueado si onMounted se ejecuta.
+  fetchDashboardData();
 });
 </script>

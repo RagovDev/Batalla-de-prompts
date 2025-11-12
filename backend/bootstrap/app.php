@@ -25,7 +25,13 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Session\Middleware\StartSession::class,
         ]);
 
-        //
+        // ======================================================================
+        // Esto le dice a Laravel que NO revise el token CSRF en ninguna
+        // ruta que empiece con 'api/'
+        $middleware->validateCsrfTokens(except: [
+            'api/*' 
+        ]);
+        // ======================================================================
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

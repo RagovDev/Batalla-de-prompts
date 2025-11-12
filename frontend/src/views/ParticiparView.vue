@@ -105,7 +105,7 @@ import { ref, onMounted, computed } from "vue";
 import { toast } from 'vue3-toastify';
 import { getToken, isAuthenticated, currentUser } from '../store/auth.js';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL; // Esto será 'http://127.0.0.1:8000'
 const participantName = ref(currentUser.value || ""); 
 const selectedRound = ref(1);
 const imageFile = ref(null);
@@ -126,7 +126,6 @@ const currentUserImage = computed(() => {
   );
 });
 
-// CAMBIO: Nueva propiedad computada para filtrar solo tus imágenes
 const myImagesInRound = computed(() => {
   if (!galleries.value[selectedRound.value] || !participantName.value) {
     return [];
@@ -137,17 +136,24 @@ const myImagesInRound = computed(() => {
   );
 });
 
-
+/*----------------------------------*\
+  # Muestra la galeria de imagenes
+  (Versión corregida para Laravel)
+\*----------------------------------*/
 async function fetchGallery(round) {
   galleryLoading.value = true;
   try {
     const response = await fetch(`${API_URL}/api/rondas/${round}/images`);
     if (!response.ok) throw new Error('Error al cargar la galería.');
     const images = await response.json();
+    
+    // Mapeamos los resultados para construir la URL absoluta correcta
     galleries.value[round] = images.map(img => ({
       ...img,
+      // Construye la URL completa: http://127.0.0.1:8000/storage/uploads/archivo.jpg
       url: `${API_URL}${img.url}` 
     }));
+  
   } catch (err) {
     console.error(`Error fetching gallery for round ${round}:`, err);
     galleries.value[round] = []; 
@@ -167,6 +173,9 @@ onMounted(() => {
   }
 });
 
+/*--------------------------------*\
+  # Guarda imagen
+\*--------------------------------*/
 function handleFileUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -176,25 +185,37 @@ function handleFileUpload(event) {
   reader.readAsDataURL(file);
 }
 
+/*--------------------------------*\
+  # Publicar imagen
+  (Adaptado para Laravel)
+\*--------------------------------*/
 async function publishImage() {
   if (!imageFile.value) {
     return toast.error('Por favor, selecciona una imagen.');
   }
   loading.value = true;
   error.value = null;
+  
   const formData = new FormData();
   formData.append('image', imageFile.value);
+  
   const token = getToken();
+
   try {
-    const response = await fetch(`${API_URL}/api/rondas/${selectedRound.value}/upload`, {
+    const response = await fetch(`${API_URL}/api/rondas/${selectedRound.value}/images`, { // Ruta RESTful de Laravel
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}` },
+      headers: { 
+        'Authorization': `Bearer ${token}`, // Cabecera de Sanctum
+        'Accept': 'application/json',
+      },
       body: formData,
     });
+    
     if (!response.ok) {
       const errData = await response.json();
       throw new Error(errData.message || 'Ocurrió un error al subir la imagen.');
     }
+    
     await response.json();
     toast.success('¡Imagen subida con éxito!'); 
     await fetchGallery(selectedRound.value);
@@ -205,11 +226,16 @@ async function publishImage() {
     
   } catch (err) {
     error.value = err.message;
+    toast.error(err.message);
   } finally {
     loading.value = false;
   }
 }
 
+/*--------------------------------*\
+  # Borrar imagen
+  (Adaptado para Laravel)
+\*--------------------------------*/
 async function deleteImage(imageId) {
   if (!confirm('¿Estás seguro de que quieres borrar tu imagen?')) return;
   
@@ -218,16 +244,23 @@ async function deleteImage(imageId) {
   try {
     const response = await fetch(`${API_URL}/api/images/${imageId}`, {
       method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: {
+        'Authorization': `Bearer ${token}`, // Cabecera de Sanctum
+        'Accept': 'application/json',
+      }
     });
-    if (!response.ok) throw new Error('No se pudo borrar la imagen.');
+
+    if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.message || 'No se pudo borrar la imagen.');
+    }
     
     toast.success('Imagen borrada correctamente.'); 
     await fetchGallery(selectedRound.value);
 
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    toast.error(err.message);
   }
 }
 </script>
