@@ -26,12 +26,18 @@ export const isAuthenticated = computed(() => !!token.value);
 /**
  * Propiedad computada que devuelve el nombre del usuario actual.
  */
-export const currentUser = computed(() => userName.value);
+export const currentUser = computed(() => {
+  // Solo devuelve el nombre si está autenticado
+  return isAuthenticated.value ? userName.value : null;
+});
 
 /**
  * Propiedad computada que devuelve `true` si el usuario actual es administrador.
  */
-export const isAdminUser = computed(() => isAdmin.value); 
+export const isAdminUser = computed(() => {
+  // Un usuario SOLO puede ser admin SI está autenticado Y el flag es true
+  return isAuthenticated.value && isAdmin.value;
+});
 
 /**
  * Función simple (no reactiva) para obtener el valor actual del token.

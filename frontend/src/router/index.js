@@ -55,7 +55,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminDashboardView,
-    meta: { requiresAdmin: true } // Nueva marca de metadatos
+    meta: { requiresAuth: true, requiresAdmin: true } 
   },
   { 
     path: '/:pathMatch(.*)*', 
@@ -72,14 +72,14 @@ router.beforeEach((to, from, next) => {
   const isAuth = isAuthenticated.value;
   const isAdmin = isAdminUser.value;
 
-  // 1. Si la ruta REQUIERE SER ADMIN y el usuario NO es admin
-  if (to.meta.requiresAdmin && !isAdmin) {
-    next({ path: '/' }); // O redirige a '/404' si lo prefieres
-  }
-  // 2. Si la ruta REQUIERE AUTENTICACIÓN (y no es admin) y el usuario NO está autenticado
-  else if (to.meta.requiresAuth && !isAuth) {
+  // 1. Si la ruta REQUIERE AUTENTICACIÓN y el usuario NO está autenticado
+  if (to.meta.requiresAuth && !isAuth) {
     next({ path: '/login' });
   } 
+  // 2. Si la ruta REQUIERE SER ADMIN y el usuario SÍ está autenticado PERO NO es admin
+  else if (to.meta.requiresAdmin && !isAdmin) {
+    next({ path: '/' }); // Redirige al inicio (o a '/404')
+  }
   // 3. Si la ruta es PARA INVITADOS (login) y el usuario SÍ está autenticado
   else if (to.meta.requiresGuest && isAuth) {
     next({ path: '/' });

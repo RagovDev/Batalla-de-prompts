@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StatsController;  
 use App\Http\Controllers\Api\AuthController;    
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ThemeController as AdminThemeController; // Le damos un alias
 
 // Routes that don't necessarily require authentication
 Route::get('/rondas/{ronda}/images', [ImageController::class, 'index']);
@@ -43,15 +44,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // ===================================================
     Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
 
-        // Dashboard principal del admin
-        // GET /api/admin/dashboard
-        Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    // Esta línea crea automáticamente:
+    // GET /api/admin/themes -> AdminThemeController@index
+    // POST /api/admin/themes -> AdminThemeController@store
+    // GET /api/admin/themes/{theme} -> AdminThemeController@show
+    // PUT /api/admin/themes/{theme} -> AdminThemeController@update
+    // DELETE /api/admin/themes/{theme} -> AdminThemeController@destroy
+    Route::apiResource('themes', AdminThemeController::class);
 
-        // Aquí pondremos el resto de rutas de admin:
-        // Ej: GET /api/admin/users (para ver lista de usuarios)
-        // Ej: POST /api/admin/themes (para crear un nuevo tema)
-        // Ej: PUT /api/admin/themes/{id} (para actualizar un tema)
-        // Ej: DELETE /api/admin/themes/{id} (para borrar un tema)
-
-    });
+    // Aquí podemos añadir otras rutas de admin en el futuro
+    // Ej: Route::get('/stats', [AdminStatsController::class, 'index']);
+});
 });
