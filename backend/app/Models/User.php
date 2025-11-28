@@ -76,4 +76,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vote::class);
     }
+
+    /**
+     * Define la relación: un usuario puede tener muchos votos de temas.
+     */
+    public function themeVotes()
+    {
+        return $this->hasMany(ThemeVote::class);
+    }
 }

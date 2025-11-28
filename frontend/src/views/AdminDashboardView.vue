@@ -3,8 +3,62 @@
     <div class="mb-8 flex justify-between items-center">
       <div>
         <h2 class="text-3xl md:text-4xl font-bold">Panel de Administración</h2>
-        <p class="mt-2 text-gray-600">Gestionar los temas del concurso.</p>
+        <p class="mt-2 text-gray-600">Gestionar temas y ver estadísticas.</p>
       </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden mb-12 overflow-x-auto">
+      <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+        <h3 class="text-xl font-bold text-gray-800">Estadísticas de Participación</h3>
+        <button @click="fetchUserStats" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+          Refrescar Datos
+        </button>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead class="bg-gray-100 text-xs text-gray-500 uppercase tracking-wider">
+            <tr>
+              <th rowspan="2" class="px-6 py-3 border-b">Usuario</th>
+              <th colspan="4" class="px-2 py-2 text-center border-b border-l border-gray-200 bg-blue-50 text-blue-700">Subió Imagen (Rondas)</th>
+              <th colspan="4" class="px-2 py-2 text-center border-b border-l border-gray-200 bg-green-50 text-green-700">Votó Imágenes (Rondas)</th>
+              <th colspan="4" class="px-2 py-2 text-center border-b border-l border-gray-200 bg-purple-50 text-purple-700">Votó Temas (Rondas)</th>
+            </tr>
+            <tr>
+              <th v-for="n in 4" :key="'up'+n" class="px-2 py-1 text-center text-gray-400 border-l border-gray-200 bg-blue-50">{{n}}</th>
+              <th v-for="n in 4" :key="'vi'+n" class="px-2 py-1 text-center text-gray-400 border-l border-gray-200 bg-green-50">{{n}}</th>
+              <th v-for="n in 4" :key="'vt'+n" class="px-2 py-1 text-center text-gray-400 border-l border-gray-200 bg-purple-50">{{n}}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="user in userStats" :key="user.id" class="hover:bg-gray-50">
+              <td class="px-6 py-3 font-medium whitespace-nowrap">
+                <div class="text-gray-900">{{ user.name }}</div>
+                <div class="text-xs text-gray-500">{{ user.email }}</div>
+              </td>
+
+              <td v-for="r in 4" :key="'u'+r" class="px-2 py-3 text-center border-l border-gray-100">
+                <span v-if="user.uploads.includes(r)">✅</span>
+                <span v-else class="text-gray-200">•</span>
+              </td>
+
+              <td v-for="r in 4" :key="'vi'+r" class="px-2 py-3 text-center border-l border-gray-100">
+                <span v-if="user.votes_images.includes(r)">✅</span>
+                <span v-else class="text-gray-200">•</span>
+              </td>
+
+              <td v-for="r in 4" :key="'vt'+r" class="px-2 py-3 text-center border-l border-gray-100">
+                <span v-if="user.votes_themes.includes(r)">✅</span>
+                <span v-else class="text-gray-200">•</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold text-gray-800">Gestión de Temas</h3>
       <button
         @click="showCreateForm"
         class="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700"
@@ -13,7 +67,7 @@
       </button>
     </div>
 
-    <div v-if="showForm" class="bg-white p-6 rounded-2xl shadow-md mb-8">
+    <div v-if="showForm" class="bg-white p-6 rounded-2xl shadow-md mb-8 border border-blue-100">
       <h3 class="text-xl font-semibold mb-6">{{ isEditing ? 'Editar Tema' : 'Crear Nuevo Tema' }}</h3>
       <form @submit.prevent="handleSubmit" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -38,22 +92,16 @@
              <img :src="form.previewUrl" class="w-32 h-32 object-cover rounded-lg border" alt="Previsualización" />
           </div>
         </div>
-        
         <div v-if="error" class="text-red-500 text-sm">{{ error }}</div>
-
         <div class="flex justify-end gap-4">
-          <button @click="hideForm" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">
-            Cancelar
-          </button>
-          <button type="submit" class="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700">
-            {{ isEditing ? 'Actualizar Tema' : 'Guardar Tema' }}
-          </button>
+          <button @click="hideForm" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700">{{ isEditing ? 'Actualizar Tema' : 'Guardar Tema' }}</button>
         </div>
       </form>
     </div>
 
     <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-      <div v-if="loading" class="p-8 text-center text-gray-500">Cargando temas...</div>
+      <div v-if="loadingThemes" class="p-8 text-center text-gray-500">Cargando temas...</div>
       <table v-else class="w-full text-sm text-left">
         <thead class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider">
           <tr>
@@ -93,21 +141,49 @@ import { toast } from 'vue3-toastify';
 const API_URL = import.meta.env.VITE_API_URL;
 const router = useRouter(); // <-- CAMBIO: Inicializar el router
 
+// Estados para Temas
 const themes = ref([]);
 const loading = ref(true);
 const error = ref(null);
 const fileInput = ref(null);
-
 const showForm = ref(false);
 const isEditing = ref(false);
 const editingThemeId = ref(null);
-
 const form = ref({
   title: '',
   ronda: 1,
   image: null,
   previewUrl: null
 });
+
+// Estados para Estadísticas
+const userStats = ref([]);
+const loadingStats = ref(true);
+
+// --- 1. Lógica de Estadísticas  ---
+
+async function fetchUserStats() {
+  loadingStats.value = true;
+  const token = getToken();
+  if (!token) return;
+
+  try {
+    const response = await fetch(`${API_URL}/api/admin/user-stats`, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
+    });
+    
+    if (response.status === 401) { handleAuthError(); return; }
+    if (!response.ok) throw new Error('Error al cargar estadísticas.');
+
+    const data = await response.json();
+    userStats.value = data;
+
+  } catch (err) {
+    toast.error(err.message);
+  } finally {
+    loadingStats.value = false;
+  }
+}
 
 // --- Lógica de UI ---
 
@@ -296,5 +372,6 @@ async function handleDelete(themeId) {
 // Carga inicial de datos
 onMounted(() => {
   fetchThemes();
+  fetchUserStats();
 });
 </script>

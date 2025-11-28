@@ -52,7 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // DELETE /api/admin/themes/{theme} -> AdminThemeController@destroy
     Route::apiResource('themes', AdminThemeController::class);
 
-    // Aquí podemos añadir otras rutas de admin en el futuro
-    // Ej: Route::get('/stats', [AdminStatsController::class, 'index']);
+    // NUEVA RUTA: Estadísticas de usuarios
+    Route::get('/user-stats', [AdminDashboardController::class, 'userStats']);
 });
 });
