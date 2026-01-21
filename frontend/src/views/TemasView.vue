@@ -1,13 +1,13 @@
 <template>
-  <div v-if="isAuthenticated" class="max-w-7xl mx-auto pt-4 px-6 p-8"> 
+  <div v-if="isAuthenticated" class="max-w-7xl mx-auto pt-4 px-6 p-8">
 
-    <div class="mb-8"> 
+    <div class="mb-8">
       <h2 class="text-3xl md:text-4xl font-bold">Votación de Temas</h2>
       <p class="mt-2 text-gray-600">Elige el tema que más te inspire para la próxima ronda. Solo puedes votar una
         vez.</p>
     </div>
 
-    <div class="h-full"> 
+    <div class="h-full">
       <div class="flex items-center gap-2 mb-8">
         <button v-for="round in [1, 2, 3, 4]" :key="round" @click="selectRound(round)"
           :class="selectedRound === round
@@ -17,18 +17,18 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center text-sm">
-        <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow">
+      <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4 text-center text-sm shadow">
+        <div>
           <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Participantes</span>
           <span class="block text-xl font-bold text-blue-600 mt-1">{{ stats.totalParticipants }}</span>
         </div>
-        <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow">
+        <div>
           <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Votos Tema (Ronda {{ selectedRound }})</span>
-          <span class="block text-xl font-bold text-blue-600 mt-1">{{ roundThemeVotes }}</span> 
+          <span class="block text-xl font-bold text-blue-600 mt-1">{{ roundThemeVotes }}</span>
         </div>
       </div>
 
-      <div class="pb-8"> 
+      <div class="pb-8">
         <div v-if="loading" class="text-center py-10 text-gray-500">Cargando temas...</div>
         <div v-else-if="error" class="text-center py-10 text-red-500">{{ error }}</div>
         <div v-else-if="themes.length === 0" class="text-center py-10 text-gray-500">No hay temas propuestos para esta ronda.</div>
@@ -70,7 +70,8 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { getToken, isAuthenticated } from '../store/auth.js';
+// CAMBIO: Importamos 'currentUser' para el watcher
+import { getToken, isAuthenticated, currentUser } from '../store/auth.js';
 import { toast } from 'vue3-toastify';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -81,10 +82,12 @@ const haVotado = ref(false);
 const userVotedFor = ref(null);
 const loading = ref(true);
 const error = ref(null);
-const stats = ref({ totalParticipants: 0, totalImageVotes: 0 }); 
+// CAMBIO: El estado de stats ahora coincide con lo que se usa en el template
+const stats = ref({ totalParticipants: 0 }); 
 const roundThemeVotes = ref(0);
 
-// Función para obtener votos de tema de la ronda
+// --- FUNCIONES ---
+
 async function fetchRoundThemeVotes(round) {
   try {
     const response = await fetch(`${API_URL}/api/stats/temas/${round}`);
@@ -110,11 +113,16 @@ async function fetchThemes(round) {
     if (!response.ok) throw new Error('Error al cargar los temas.');
 
     const data = await response.json();
-    themes.value = data.temas;
+    
+    // CAMBIO: Se construye la URL completa para cada imagen
+    themes.value = data.temas.map(theme => ({
+      ...theme,
+      imageUrl: `${API_URL}${theme.imageUrl}` // Ej: http://127.0.0.1:8000 + /storage/themes/archivo.jpg
+    }));
+
     haVotado.value = data.haVotado;
     userVotedFor.value = data.userVotedFor;
 
-    // CAMBIO: Llama a fetchRoundThemeVotes
     await fetchRoundThemeVotes(round);
 
   } catch (err) {
@@ -129,10 +137,9 @@ async function fetchGlobalStats() {
     const response = await fetch(`${API_URL}/api/stats`);
     if (!response.ok) throw new Error('No se pudieron cargar las estadísticas globales.');
     const data = await response.json();
+    // CAMBIO: Solo guardamos los stats que este componente usa
     stats.value = {
-      totalParticipants: data.totalParticipants,
-      totalImageVotes: data.totalImageVotes 
-      // Ya no necesitamos totalThemeVotes aquí
+      totalParticipants: data.totalParticipants
     };
   } catch (err) {
     console.error(err);
@@ -159,8 +166,6 @@ async function handleVote(theme) {
     haVotado.value = true;
     userVotedFor.value = theme.id;
     toast.success('¡Gracias por tu voto!');
-
-    // CAMBIO: Llama a fetchRoundThemeVotes después de votar
     await fetchRoundThemeVotes(selectedRound.value);
 
   } catch (err) {
@@ -168,18 +173,41 @@ async function handleVote(theme) {
   }
 }
 
-function selectRound(round) {
+async function selectRound(round) {
+  if (selectedRound.value === round || loading.value) return;
   selectedRound.value = round;
+  
   if (isAuthenticated.value) {
-    fetchThemes(round); // Carga temas y votos de la nueva ronda
+    // No es necesario 'loading.value = true' aquí
+    // porque 'fetchThemes' ya lo maneja
+    await fetchThemes(round); 
   }
 }
 
-// CAMBIO: onMounted ahora llama a las funciones correctas
+// CAMBIO: Se añade el watcher para isAuthenticated
+watch(isAuthenticated, (isAuthNow, wasAuthBefore) => {
+  // Si el usuario acaba de iniciar sesión (o ya estaba logueado al cargar)
+  if (isAuthNow) {
+    fetchGlobalStats();
+    fetchThemes(selectedRound.value); // Carga los temas de la ronda actual
+  } 
+  // Si el usuario acaba de cerrar sesión
+  else if (!isAuthNow && wasAuthBefore) {
+    themes.value = [];
+    userVotedFor.value = null;
+    haVotado.value = false;
+    roundThemeVotes.value = 0;
+    stats.value = { totalParticipants: 0 };
+    error.value = null;
+    loading.value = false;
+    selectedRound.value = 1;
+  }
+}, { immediate: true }); // 'immediate: true' ejecuta esto al cargar
+
+// CAMBIO: onMounted se simplifica porque el watcher 'immediate' hace el trabajo
 onMounted(() => {
-  if (isAuthenticated.value) {
-    fetchGlobalStats(); // Carga participantes y total de votos de imágenes
-    fetchThemes(1);    // Carga temas de ronda 1 y votos de tema de ronda 1
+  if (!isAuthenticated.value) {
+    loading.value = false; // Asegura que 'loading' sea falso si no hay login
   }
 });
 </script>

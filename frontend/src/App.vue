@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="bg-gray-100 flex flex-col min-h-screen">
     <Navbar />
-    <main class="flex-grow flex items-center justify-center">
+    <main class="flex-grow">
       <router-view />
     </main>
   </div>

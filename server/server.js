@@ -29,8 +29,8 @@ app.use(cors(corsOptions));
 
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const DB_FILE = path.join(__dirname, 'db.json');
-
 const JWT_SECRET = '-UT&7?$1,zmZksN[P(uv~c(ktsfXZ8/Z';
+
 
 /**
  * MIDDLEWARE DE AUTENTICACIÓN
@@ -100,6 +100,8 @@ app.use('/uploads', express.static(UPLOAD_DIR));
  * Subir imagen a una ronda:
  * POST /api/rondas/:ronda/upload
  * FormData: image (file), name (participant name)
+ * 
+ * Migracion OK
  */
 app.post('/api/rondas/:ronda/upload', authMiddleware, upload.single('image'), async (req, res) => {
   const { ronda } = req.params;
@@ -134,6 +136,8 @@ app.post('/api/rondas/:ronda/upload', authMiddleware, upload.single('image'), as
  * - Borra la imagen de la DB
  * - Borra el archivo físico del disco
  * - Borra los votos asociados
+ * 
+ * Migracion OK
  */
 app.delete('/api/images/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
@@ -164,9 +168,12 @@ app.delete('/api/images/:id', authMiddleware, async (req, res) => {
   }
 });
 
+
 /**
  * Listar imágenes de una ronda
  * GET /api/rondas/:ronda/images
+ * 
+ * Migracion OK
  */
 app.get('/api/rondas/:ronda/images', async (req, res) => {
   const db = await readDB();
@@ -181,6 +188,8 @@ app.get('/api/rondas/:ronda/images', async (req, res) => {
  * POST /api/vote
  * body: { imageId, voterName }
  * - impide doble voto por misma imagen+voterName
+ * 
+ * Migracion OK
  */
 app.post('/api/vote', async (req, res) => {
   const { imageId, voterName } = req.body;
@@ -286,6 +295,8 @@ function computeScores(db) {
  * REGISTRO DE NUEVOS USUARIOS
  * POST /api/register
  * body: { name, password }
+ * 
+ * Migracion OK
  */
 app.post('/api/register', async (req, res) => {
   const { name, password } = req.body;
@@ -324,6 +335,8 @@ app.post('/api/register', async (req, res) => {
  * LOGIN DE USUARIOS
  * POST /api/login
  * body: { name, password }
+ * 
+ * Migracion OK
  */
 app.post('/api/login', async (req, res) => {
   const { name, password } = req.body;
@@ -375,6 +388,8 @@ app.get('/api/images', async (req, res) => {
  * GET /api/temas/:ronda
  * Obtiene los temas para una ronda específica y el estado de voto del usuario.
  * Protegido por autenticación.
+ * 
+ * Migracion OK
  */
 app.get('/api/temas/:ronda', authMiddleware, async (req, res) => {
   const { ronda } = req.params;
@@ -402,6 +417,8 @@ app.get('/api/temas/:ronda', authMiddleware, async (req, res) => {
  * Registra el voto de un usuario para un tema en una ronda.
  * Protegido por autenticación.
  * body: { themeId }
+ * 
+ * Migracion OK  
  */
 app.post('/api/temas/votar', authMiddleware, async (req, res) => {
   const { themeId } = req.body;
@@ -445,6 +462,8 @@ app.post('/api/temas/votar', authMiddleware, async (req, res) => {
 /**
  * GET /api/me/votes
  * Devuelve el historial de votos del usuario autenticado.
+ * 
+ * Migracion OK
  */
 app.get('/api/me/votes', authMiddleware, async (req, res) => {
   const userId = req.user.id;
@@ -466,6 +485,8 @@ app.get('/api/me/votes', authMiddleware, async (req, res) => {
 /**
  * GET /api/stats
  * Devuelve estadísticas básicas: total de participantes, total votos emitidos en temas y total de votos emitidos.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats', async (req, res) => {
   try {
@@ -485,9 +506,12 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
+
 /**
  * GET /api/stats/temas/:ronda
  * Devuelve el número total de votos emitidos para temas en una ronda específica.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats/temas/:ronda', async (req, res) => {
   const { ronda } = req.params;
@@ -510,6 +534,8 @@ app.get('/api/stats/temas/:ronda', async (req, res) => {
 /**
  * GET /api/stats/images/:ronda
  * Devuelve el número total de votos emitidos para imágenes en una ronda específica.
+ * 
+ * Migracion OK
  */
 app.get('/api/stats/images/:ronda', async (req, res) => {
   const { ronda } = req.params;

@@ -1,6 +1,6 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
-import { isAuthenticated } from '../store/auth.js';
+import { isAuthenticated, isAdminUser } from '../store/auth.js';
 
 // Importar las vistas
 import AuthView from '../views/AuthView.vue';
@@ -9,6 +9,7 @@ import ParticiparView from "../views/ParticiparView.vue";
 import TemasView from '../views/TemasView.vue'
 import VotacionesView from "../views/VotacionesView.vue";
 import ResultadosView from "../views/ResultadosView.vue";
+import AdminDashboardView from '../views/AdminDashboardView.vue';
 
 const routes = [
   {
@@ -50,6 +51,12 @@ const routes = [
     name: 'NotFound', 
     component: NotFoundView 
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminDashboardView,
+    meta: { requiresAuth: true, requiresAdmin: true } 
+  },
   { 
     path: '/:pathMatch(.*)*', 
     redirect: '/404' 
@@ -62,17 +69,22 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // 1. Si la ruta REQUIERE AUTENTICACIÓN y el usuario NO está autenticado...
-  if (to.meta.requiresAuth && !isAuthenticated.value) {
-    // ...lo redirigimos a la página de login.
+  const isAuth = isAuthenticated.value;
+  const isAdmin = isAdminUser.value;
+
+  // 1. Si la ruta REQUIERE AUTENTICACIÓN y el usuario NO está autenticado
+  if (to.meta.requiresAuth && !isAuth) {
     next({ path: '/login' });
   } 
-  // 2. Si la ruta es PARA INVITADOS (login) y el usuario SÍ está autenticado...
-  else if (to.meta.requiresGuest && isAuthenticated.value) {
-    // ...lo redirigimos a la página principal.
+  // 2. Si la ruta REQUIERE SER ADMIN y el usuario SÍ está autenticado PERO NO es admin
+  else if (to.meta.requiresAdmin && !isAdmin) {
+    next({ path: '/' }); // Redirige al inicio (o a '/404')
+  }
+  // 3. Si la ruta es PARA INVITADOS (login) y el usuario SÍ está autenticado
+  else if (to.meta.requiresGuest && isAuth) {
     next({ path: '/' });
   } 
-  // 3. En cualquier otro caso, lo dejamos pasar.
+  // 4. En cualquier otro caso, déjalo pasar
   else {
     next();
   }
