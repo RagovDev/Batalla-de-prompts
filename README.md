@@ -34,39 +34,3 @@ El proyecto está dividido en dos partes (Frontend y Backend) para garantizar es
 * [Laravel 11](https://laravel.com/) (Framework API REST)
 * [MySQL](https://www.mysql.com/) (Base de datos relacional)
 * [Laravel Sanctum](https://laravel.com/docs/sanctum) (Autenticación por API Tokens)
-
----
-
-## 🚀 Instalación y Configuración Local
-
-### 1. Requisitos Previos
-* Node.js y npm instalados.
-* PHP 8.2 o superior.
-* Composer.
-* Servidor MySQL (XAMPP, Laragon, TablePlus, etc.).
-
-### 2. Configuración del Backend (Laravel)
-
-# 1. Entra a la carpeta del backend
-cd backend
-
-# 2. Instala las dependencias de PHP
-composer install
-
-# 3. Copia el archivo de entorno y genera la clave
-cp .env.example .env
-php artisan key:generate
-
-# 4. Configura tu base de datos en el archivo .env
-# DB_DATABASE=nombre_de_tu_bd
-# DB_USERNAME=tu_usuario
-# DB_PASSWORD=tu_contraseña
-
-# 5. Ejecuta las migraciones
-php artisan migrate
-
-# 6. Crea el enlace simbólico para las imágenes
-php artisan storage:link
-
-# 7. Inicia el servidor de desarrollo
-php artisan serve
